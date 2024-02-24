@@ -13,7 +13,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import json
 import time
 
-endpoint = 'https://en131.tribalwars.net/game.php?'
+endpoint = 'https://en138.tribalwars.net/game.php?'
 quicklink_loot_assistant_href = '/game.php?village=20145&screen=am_farm'
 
 
@@ -21,8 +21,8 @@ def load_cookies(driver):
     with open('cookie.txt', 'r') as f:
         key_value_list = f.read().split('; ')
     cookies = {k: v for k, v in [kv.split('=') for kv in key_value_list]}
-    # for k, v in cookies.items():
-    #      print(k, v)
+    for k, v in cookies.items():
+         print(k, v)
     for k, v in cookies.items():
         driver.add_cookie({'name': k, 'value': v})
 
@@ -30,7 +30,7 @@ def load_cookies(driver):
 def run_bot():
     # chrome_options = Options()
     # chrome_options.add_experimental_option("detach", True)
-    tribalwars_base_url = 'https://tribalwars.net'
+    tribalwars_base_url = 'https://www.tribalwars.net/en-dk/'
 
     driver = webdriver.Chrome()
     driver.implicitly_wait(10)
@@ -43,54 +43,54 @@ def run_bot():
 
     # click the world button for world 131
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'world_button_active'))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, 'Loot Assistant'))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, 'LA Enhancer'))).click()
-
-    # LA Enhancer settings configuration
-    # ----------------------------------
-    # hide wall lvl
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'enable_walls'))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'wall_value'))).send_keys('0')
-    # hide reports if partial losses or full losses
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'yellow'))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'red_yellow'))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'red'))).click()
-    # villages plundered in the last _ minutes
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'enable_time'))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'time_value'))).send_keys('40')
-    # villages sent to in the last _ minutes
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'hide_recent_farms'))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'hide_recent_time'))).send_keys('40')
-    # change upper limit of load pages
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'end_page'))).send_keys('10')
-
-    # get number of lc
-    lc_count = int(driver.find_element(By.CLASS_NAME, 'unit-item-light').text)
-    print('LC count: ', lc_count)
-    # get number of scouts
-    scout_count = int(driver.find_element(By.CLASS_NAME, 'unit-item-spy').text)
-    print('Scouts count: ', scout_count)
-
-    sleep(2)
-    # click the apply button
-    submit_button = driver.find_element(By.CSS_SELECTOR, "input[value='Apply']")
-    submit_button.click()
-
-    sleep(2)
-
-    # send out LC and scouts
-    for _ in range(lc_count // 3):
-        if scout_count <= 0:
-            break
-        sleep(0.4)
-        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.TAG_NAME, 'body'))).send_keys('a')
-        scout_count -= 1
-        lc_count -= 3
-
-    # send out the remaining calvary
-    for _ in range(lc_count // 3):
-        sleep(0.4)
-        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.TAG_NAME, 'body'))).send_keys('b')
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, 'Loot Assistant'))).click()
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, 'LA Enhancer'))).click()
+    #
+    # # LA Enhancer settings configuration
+    # # ----------------------------------
+    # # hide wall lvl
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'enable_walls'))).click()
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'wall_value'))).send_keys('0')
+    # # hide reports if partial losses or full losses
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'yellow'))).click()
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'red_yellow'))).click()
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'red'))).click()
+    # # villages plundered in the last _ minutes
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'enable_time'))).click()
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'time_value'))).send_keys('40')
+    # # villages sent to in the last _ minutes
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'hide_recent_farms'))).click()
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'hide_recent_time'))).send_keys('40')
+    # # change upper limit of load pages
+    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'end_page'))).send_keys('10')
+    #
+    # # get number of lc
+    # lc_count = int(driver.find_element(By.CLASS_NAME, 'unit-item-light').text)
+    # print('LC count: ', lc_count)
+    # # get number of scouts
+    # scout_count = int(driver.find_element(By.CLASS_NAME, 'unit-item-spy').text)
+    # print('Scouts count: ', scout_count)
+    #
+    # sleep(2)
+    # # click the apply button
+    # submit_button = driver.find_element(By.CSS_SELECTOR, "input[value='Apply']")
+    # submit_button.click()
+    #
+    # sleep(2)
+    #
+    # # send out LC and scouts
+    # for _ in range(lc_count // 3):
+    #     if scout_count <= 0:
+    #         break
+    #     sleep(0.4)
+    #     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.TAG_NAME, 'body'))).send_keys('a')
+    #     scout_count -= 1
+    #     lc_count -= 3
+    #
+    # # send out the remaining calvary
+    # for _ in range(lc_count // 3):
+    #     sleep(0.4)
+    #     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.TAG_NAME, 'body'))).send_keys('b')
 
     sleep(2)
 
